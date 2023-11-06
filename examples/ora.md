@@ -22,6 +22,7 @@ enrichResult <- WebGestaltR(
   interestGeneType = "entrezgene", referenceGeneFile = refFile,
   referenceGeneType = "entrezgene", isOutput = TRUE,
   topThr = 100, sigMethod = "top",
-  outputDirectory = outputDirectory, projectName = NULL, usekMedoid = TRUE, kMedoid_k = 50, useWeightedSetCover = FALSE, useAffinityPropagation = TRUE
+  outputDirectory = outputDirectory, projectName = NULL, usekMedoid = TRUE,
+  kMedoid_k = 50, useWeightedSetCover = FALSE, useAffinityPropagation = TRUE
 )
 ```
