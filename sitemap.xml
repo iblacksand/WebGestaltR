@@ -4,6 +4,12 @@
     <loc>https://iblacksand.github.io/WebGestaltR/404.html</loc>
   </url>
   <url>
+    <loc>https://iblacksand.github.io/WebGestaltR/articles/Installation.html</loc>
+  </url>
+  <url>
+    <loc>https://iblacksand.github.io/WebGestaltR/articles/index.html</loc>
+  </url>
+  <url>
     <loc>https://iblacksand.github.io/WebGestaltR/authors.html</loc>
   </url>
   <url>
@@ -65,6 +71,9 @@
   </url>
   <url>
     <loc>https://iblacksand.github.io/WebGestaltR/reference/linkModification.html</loc>
+  </url>
+  <url>
+    <loc>https://iblacksand.github.io/WebGestaltR/reference/listArchiveUrl.html</loc>
   </url>
   <url>
     <loc>https://iblacksand.github.io/WebGestaltR/reference/listGeneSet.html</loc>
