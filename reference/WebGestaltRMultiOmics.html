@@ -77,13 +77,13 @@
 <span>  reportNum <span class="op">=</span> <span class="fl">20</span>,</span>
 <span>  setCoverNum <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  perNum <span class="op">=</span> <span class="fl">1000</span>,</span>
-<span>  p <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  gseaP <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  isOutput <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  outputDirectory <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  projectName <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dagColor <span class="op">=</span> <span class="st">"binary"</span>,</span>
 <span>  saveRawGseaResult <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  plotFormat <span class="op">=</span> <span class="st">"png"</span>,</span>
+<span>  gseaPlotFormat <span class="op">=</span> <span class="st">"png"</span>,</span>
 <span>  nThreads <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  cache <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  hostName <span class="op">=</span> <span class="st">"https://www.webgestalt.org/"</span>,</span>
@@ -211,6 +211,11 @@ It could get fewer sets if the coverage reaches 100%. The default is <code>10</c
 <dd><p>The number of permutations for the GSEA method. The default is <code>1000</code>.</p></dd>
 
 
+<dt>gseaP</dt>
+<dd><p>The exponential scaling factor of the phenotype score. The default is <code>1</code>.
+When p=0, ES reduces to standard K-S statistics (See original paper for more details).</p></dd>
+
+
 <dt>isOutput</dt>
 <dd><p>If <code>isOutput</code> is TRUE, WebGestaltR will create a folder named by
 the <code>projectName</code> and save the results in the folder. Otherwise, WebGestaltR will
@@ -251,6 +256,11 @@ corresponding FDRs.</p></dd>
 </dl></dd>
 
 
+<dt>gseaPlotFormat</dt>
+<dd><p>The graphic format of GSEA enrichment plots. Either <code>svg</code>,
+<code>png</code>, or <code>c("png", "svg")</code> (default).</p></dd>
+
+
 <dt>nThreads</dt>
 <dd><p>The number of cores to use for GSEA and set cover, and in batch function.</p></dd>
 
@@ -261,6 +271,22 @@ corresponding FDRs.</p></dd>
 
 <dt>hostName</dt>
 <dd><p>The server URL for accessing data. Mostly for development purposes.</p></dd>
+
+
+<dt>useWeightedSetCover</dt>
+<dd><p>Use weighted set cover for ORA. Defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt>useAffinityPropagation</dt>
+<dd><p>Use affinity propagation for ORA. Defaults to <code>FALSE</code>.</p></dd>
+
+
+<dt>usekMedoid</dt>
+<dd><p>Use k-medoid for ORA. Defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt>kMedoid_k</dt>
+<dd><p>The number of clusters for k-medoid. Defaults to <code>25</code>.</p></dd>
 
 
 <dt>referenceLists</dt>
@@ -275,47 +301,10 @@ list. The extension of the <code>referenceListFile</code> should be <code>txt</c
 only contain one column: the reference gene list.</p></dd>
 
 
-<dt>referenceGeneType</dt>
-<dd><p>The ID type of the reference gene list. The supported ID types
+<dt>referenceTypes</dt>
+<dd><p>Vector of the ID types of the reference lists. The supported ID types
 of WebGestaltR for the selected organism can be found by the function <code>listIdType</code>.
 If the <code>organism</code> is <code>others</code>, users do not need to set this parameter.</p></dd>
-
-
-<dt>gseaP</dt>
-<dd><p>The exponential scaling factor of the phenotype score. The default is <code>1</code>.
-When p=0, ES reduces to standard K-S statistics (See original paper for more details).</p></dd>
-
-
-<dt>gseaPlotFormat</dt>
-<dd><p>The graphic format of GSEA enrichment plots. Either <code>svg</code>,
-<code>png</code>, or <code>c("png", "svg")</code> (default).</p></dd>
-
-
-<dt>networkConstructionMethod</dt>
-<dd><p>Netowrk construction method for NTA. Either
-<code>Network_Retrieval_Prioritization</code> or <code>Network_Expansion</code>. Network Retrieval &amp;
-Prioritization first uses random walk analysis to calculate random walk probabilities
-for the input seeds, then identifies the relationships among the seeds in the selected
-network and returns a retrieval sub-network. The seeds with the top random walk
-probabilities are highlighted in the sub-network. Network Expansion first uses random
-walk analysis to rank all genes in the selected network based on their network
-proximity to the input seeds and then return an expanded sub-network in which nodes
-are the input seeds and their top ranking neighbors and edges represent their
-relationships.</p></dd>
-
-
-<dt>neighborNum</dt>
-<dd><p>The number of neighbors to include in NTA Network Expansion method.</p></dd>
-
-
-<dt>highlightType</dt>
-<dd><p>The type of nodes to highlight in the NTA Network Expansion method,
-either <code>Seeds</code> or <code>Neighbors</code>.</p></dd>
-
-
-<dt>highlightSeedNum</dt>
-<dd><p>The number of top input seeds to highlight in NTA Network Retrieval
-&amp; Prioritizaiton method.</p></dd>
 
 </dl></div>
 
