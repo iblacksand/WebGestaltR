@@ -74,7 +74,7 @@
 <span>  sigMethod <span class="op">=</span> <span class="st">"fdr"</span>,</span>
 <span>  fdrThr <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  topThr <span class="op">=</span> <span class="fl">10</span>,</span>
-<span>  reportNum <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>  reportNum <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  setCoverNum <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  perNum <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>  gseaP <span class="op">=</span> <span class="fl">1</span>,</span>
@@ -90,14 +90,13 @@
 <span>  useWeightedSetCover <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  useAffinityPropagation <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  usekMedoid <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  kMedoid_k <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  kMedoid_k <span class="op">=</span> <span class="fl">25</span>,</span>
 <span>  isMetaAnalysis <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  mergeMethod <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>  normalizationMethod <span class="op">=</span> <span class="st">"rank"</span>,</span>
 <span>  referenceLists <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  referenceListFiles <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  referenceTypes <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">referenceSet</span></span>
+<span>  referenceTypes <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -116,6 +115,10 @@ the <code>analyteListFiles</code> should be <code>txt</code> and each file can o
 the interesting analyte list. If <code>enrichMethod</code> is <code>GSEA</code>, the extension of the
 <code>analyteListFiles</code> should be <code>rnk</code> and the files should contain two columns
 separated by tab: the analyte list and the corresponding scores.</p></dd>
+
+
+<dt>analyteTypes</dt>
+<dd><p>a vector containing the ID types of the analyte lists.</p></dd>
 
 
 <dt>enrichMethod</dt>
@@ -287,6 +290,18 @@ corresponding FDRs.</p></dd>
 
 <dt>kMedoid_k</dt>
 <dd><p>The number of clusters for k-medoid. Defaults to <code>25</code>.</p></dd>
+
+
+<dt>isMetaAnalysis</dt>
+<dd><p>whether to perform meta-analysis. Defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt>mergeMethod</dt>
+<dd><p>The method to merge the results from multiple omics (options: <code>mean</code>, <code>max</code>). Only used if <code>isMetaAnalysis = FALSE</code>. Defaults to <code>mean</code>.</p></dd>
+
+
+<dt>normalizationMethod</dt>
+<dd><p>The method to normalize the results from multiple omics (options: <code>rank</code>, <code>median</code>, <code>mean</code>). Only used if <code>isMetaAnalysis = FALSE</code>.</p></dd>
 
 
 <dt>referenceLists</dt>
