@@ -64,7 +64,8 @@
 <span>  enrichDatabaseType <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  enrichDatabaseDescriptionFile <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  cache <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  hostName <span class="op">=</span> <span class="st">"https://www.webgestalt.org/"</span></span>
+<span>  hostName <span class="op">=</span> <span class="st">"https://www.webgestalt.org/"</span>,</span>
+<span>  isMultiOmics <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -114,6 +115,10 @@ column is the description of the category. All columns are separated by tabs.</p
 
 <dt>hostName</dt>
 <dd><p>The server URL for accessing data. Mostly for development purposes.</p></dd>
+
+
+<dt>isMultiOmics</dt>
+<dd><p>Boolean if loading gene sets for multiomics. Defaults to <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
