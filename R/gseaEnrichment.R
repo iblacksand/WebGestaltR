@@ -1,11 +1,10 @@
 #' @importFrom dplyr select distinct filter arrange mutate left_join %>%
 #' @importFrom readr write_tsv
-gseaEnrichment <- function (hostName, outputDirectory, projectName, geneRankList, geneSet, geneSetDes=NULL, collapseMethod="mean", minNum=10, maxNum=500, sigMethod="fdr", fdrThr=0.05, topThr=10, perNum=1000, p=1, isOutput=TRUE, saveRawGseaResult=FALSE, plotFormat="png", nThreads=1) {
+gseaEnrichment <- function(hostName, outputDirectory, projectName, geneRankList, geneSet, geneSetDes=NULL, collapseMethod="mean", minNum=10, maxNum=500, sigMethod="fdr", fdrThr=0.05, topThr=10, perNum=1000, p=1, isOutput=TRUE, saveRawGseaResult=FALSE, plotFormat="png", nThreads=1) {
 	projectFolder <- file.path(outputDirectory, paste("Project_", projectName, sep=""))
 	if (!dir.exists(projectFolder)) {
 		dir.create(projectFolder)
 	}
-
 	colnames(geneRankList) <- c("gene", "score")
 	sortedScores <- sort(geneRankList$score, decreasing=TRUE)
 
@@ -43,7 +42,8 @@ gseaEnrichment <- function (hostName, outputDirectory, projectName, geneRankList
 
 	enrichRes <- gseaRes$Enrichment_Results %>%
 		mutate(geneSet = rownames(gseaRes$Enrichment_Results)) %>%
-		select(.data$geneSet, enrichmentScore=.data$ES, normalizedEnrichmentScore=.data$NES, pValue=.data$p_val, FDR=.data$fdr)
+		select(.data$geneSet, enrichmentScore=.data$ES, normalizedEnrichmentScore=.data$NES, pValue=.data$p_val, FDR=.data$fdr, 
+           leadingEdgeNum = .data$leading_edge)
 	# TODO: handle errors
 
 	if (sigMethod == "fdr") {
@@ -62,19 +62,19 @@ gseaEnrichment <- function (hostName, outputDirectory, projectName, geneRankList
 	}
 
 	if (!is.null(insig)) {
-		insig$leadingEdgeNum <- unname(sapply(insig$geneSet, function(geneSet) {
-			rsum <- gseaRes$Running_Sums[, geneSet] # Running sum is a matrix of gene by gene set
-			maxPeak <- max(rsum)
-			minPeak <- min(rsum)
-			if (abs(maxPeak) >= abs(minPeak)) {
-				peakIndex <- match(max(rsum), rsum)
-				leadingEdgeNum <- sum(gseaRes$Items_in_Set[[geneSet]]$rank <= peakIndex)
-			} else {
-				peakIndex <- match(min(rsum), rsum)
-				leadingEdgeNum <- sum(gseaRes$Items_in_Set[[geneSet]]$rank >= peakIndex)
-			}
-			return(leadingEdgeNum)
-		}))
+		# insig$leadingEdgeNum <- unname(sapply(insig$geneSet, function(geneSet) {
+		# 	rsum <- gseaRes$Running_Sums[, geneSet] # Running sum is a matrix of gene by gene set
+		# 	maxPeak <- max(rsum)
+		# 	minPeak <- min(rsum)
+		# 	if (abs(maxPeak) >= abs(minPeak)) {
+		# 		peakIndex <- match(max(rsum), rsum)
+		# 		leadingEdgeNum <- sum(gseaRes$Items_in_Set[[geneSet]]$rank <= peakIndex)
+		# 	} else {
+		# 		peakIndex <- match(min(rsum), rsum)
+		# 		leadingEdgeNum <- sum(gseaRes$Items_in_Set[[geneSet]]$rank >= peakIndex)
+		# 	}
+		# 	return(leadingEdgeNum)
+		# }))
 	}
 	plotSuffix <- ifelse("png" %in% plotFormat, "png", "svg")
 	sig <- sig %>% left_join(geneSetName, by="geneSet") %>%
@@ -130,9 +130,11 @@ plotEnrichmentPlot <- function(title, outputDir, fileName, format="png", running
 		svglite(file.path(outputDir, paste0(sanitizeFileName(fileName), ".svg")), bg="transparent", width=7, height=7)
 		cex <- list(main=1.5, axis=0.6, lab=0.8)
 		# svg seems to have a problem with long title (figure margins too large)
-		if (nchar(title) > 80) {
+		if (!is.na(nchar(title))) {
+    if (nchar(title) > 80) {
 			title = paste0(substr(title, 1, 80), "...")
 		}
+    }
 	}
 	wrappedTitle <- strwrap(paste0("Enrichment plot: ", title), 60)
 	plot.new()

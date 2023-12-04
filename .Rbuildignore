@@ -1,0 +1,11 @@
+^src/\.cargo$
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.github$
+^\.lintr$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^logo\.svg$
+^build_hash\.py$
+^\.cargo$
