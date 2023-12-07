@@ -37,6 +37,9 @@
     <loc>https://iblacksand.github.io/WebGestaltR/reference/createMetaReport.html</loc>
   </url>
   <url>
+    <loc>https://iblacksand.github.io/WebGestaltR/reference/createMetaSummaryReport.html</loc>
+  </url>
+  <url>
     <loc>https://iblacksand.github.io/WebGestaltR/reference/createNtaReport.html</loc>
   </url>
   <url>
@@ -98,6 +101,9 @@
   </url>
   <url>
     <loc>https://iblacksand.github.io/WebGestaltR/reference/metaEnrichResultSection.html</loc>
+  </url>
+  <url>
+    <loc>https://iblacksand.github.io/WebGestaltR/reference/metaSummaryDescription.html</loc>
   </url>
   <url>
     <loc>https://iblacksand.github.io/WebGestaltR/reference/ora_rust.html</loc>
