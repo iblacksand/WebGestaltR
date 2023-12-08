@@ -25,6 +25,9 @@
     <loc>https://iblacksand.github.io/WebGestaltR/reference/WebGestaltRMultiOmics.html</loc>
   </url>
   <url>
+    <loc>https://iblacksand.github.io/WebGestaltR/reference/WebGestaltRMultiOmicsGSEA.html</loc>
+  </url>
+  <url>
     <loc>https://iblacksand.github.io/WebGestaltR/reference/WebGestaltRMultiOmicsOra.html</loc>
   </url>
   <url>
@@ -104,6 +107,9 @@
   </url>
   <url>
     <loc>https://iblacksand.github.io/WebGestaltR/reference/metaSummaryDescription.html</loc>
+  </url>
+  <url>
+    <loc>https://iblacksand.github.io/WebGestaltR/reference/multiswGsea.html</loc>
   </url>
   <url>
     <loc>https://iblacksand.github.io/WebGestaltR/reference/ora_rust.html</loc>
