@@ -85,7 +85,15 @@ likelihood/weight columns in <code>input_df</code> are 1 or 0, <code>p=1</code>,
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>thresh_type</dt>
+    <dl><dt>input_df_list</dt>
+<dd><p>A data frame in which first column is name of item of interest
+(gene, protein, phosphosite, etc.), the second is the correlation of that item
+of interest with the phenotype (typically log ratio of expression for phenotype
+vs. normal), and the remaining columns are the scores for the likelihood that
+the item belongs in each set (one column per set).</p></dd>
+
+
+<dt>thresh_type</dt>
 <dd><p>The type of <code>thresh</code>. Use 'percentile' to include all
 scores over that percentile given in <code>thresh</code> (i.e., 0.9 would be all items
 in 90th percentile, or top 10 percent); 'list' to include a list of set lists
@@ -166,14 +174,6 @@ larger than 0.</p></dd>
 <dd><p>For the ORA method, WebGestaltR supports five FDR methods: <code>holm</code>,
 <code>hochberg</code>, <code>hommel</code>, <code>bonferroni</code>, <code>BH</code> and <code>BY</code>. The default
 is <code>BH</code>.</p></dd>
-
-
-<dt>input_df</dt>
-<dd><p>A data frame in which first column is name of item of interest
-(gene, protein, phosphosite, etc.), the second is the correlation of that item
-of interest with the phenotype (typically log ratio of expression for phenotype
-vs. normal), and the remaining columns are the scores for the likelihood that
-the item belongs in each set (one column per set).</p></dd>
 
 </dl></div>
     <div class="section level2">
