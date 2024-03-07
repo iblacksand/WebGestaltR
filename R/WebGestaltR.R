@@ -214,7 +214,7 @@ WebGestaltR <- function(enrichMethod = "ORA", organism = "hsapiens", enrichDatab
                         hostName = "https://www.webgestalt.org/", useWeightedSetCover = FALSE, useAffinityPropagation = FALSE,
                         usekMedoid = TRUE, kMedoid_k = 25, ...) {
   extraArgs <- list(...)
-  if (enrichMethod == "NTA" && (enrichDatabase[1] == "network_FunMap") {
+  if (enrichMethod == "NTA" && (enrichDatabase[1] == "network_FunMap")) {
     enrichDatabase <- "network_FunMap_DenseModules"
   }
   if ("keepGSEAFolder" %in% names(extraArgs) | "keepGseaFolder" %in% names(extraArgs)) {
