@@ -57,9 +57,10 @@ WebGestaltRMultiOmicsGSEA <- function(analyteLists = NULL, analyteListFiles = NU
     cat("Running multi-omics GSEA...\n")
 
     gseaRes <- multiGseaEnrichment(
-        hostName = hostName, outputDirectory = outputDirectory, projectName = projectName, geneRankList_list = interest_lists, geneSet_list = all_sets[["geneSet"]], geneSetDes_list = all_sets[["geneSetDes"]],
-        collapseMethod = "mean", minNum = minNum, maxNum = maxNum, sigMethod = sigMethod, fdrThr = fdrThr, topThr = topThr, perNum = perNum, p = gseaP,
-        isOutput = isOutput, saveRawGseaResult = saveRawGseaResult, plotFormat = gseaPlotFormat, nThreads = nThreads, listNames = listNames
+        hostName = hostName, outputDirectory = outputDirectory, projectName = projectName, geneRankList_list = interest_lists, geneSet_list = all_sets[["geneSet"]], 
+        geneSetDes_list = all_sets[["geneSetDes"]], collapseMethod = "mean", minNum = minNum, maxNum = maxNum, sigMethod = sigMethod, fdrThr = fdrThr,
+        topThr = topThr, perNum = perNum, p = gseaP,isOutput = isOutput, saveRawGseaResult = saveRawGseaResult, plotFormat = gseaPlotFormat,
+        nThreads = nThreads, listNames = listNames
     )
 
     cat("Generating the report...\n")

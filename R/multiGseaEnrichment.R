@@ -44,7 +44,7 @@ multiGseaEnrichment <- function(hostName = NULL, outputDirectory = NULL, project
         write_tsv(geneRankList, gseaRnk, col_names = FALSE)
 
         outputF <- file.path(projectFolder, paste0("Project_", projectName, "_GSEA/"))
-        relativeF <- file.path(".", paste0("Project_", projectName, "_GSEA"))
+        relativeF <- file.path("./", paste0("Project_", projectName, "_GSEA"))
         if (!dir.exists(outputF) && isOutput) {
             dir.create(outputF)
         }
