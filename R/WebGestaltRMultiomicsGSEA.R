@@ -163,21 +163,24 @@ WebGestaltRMultiOmicsGSEA <- function(analyteLists = NULL, analyteListFiles = NU
             if (i != 1) {
                 enrichedSig_list[[i - 1]] <- enrichedSig
             }
-            geneTables <- getGeneTables(organism, enrichedSig, "leadingEdgeId", interestingGeneMap)
-            geneTables_list[[i]] <- geneTables
+
             if (organism != "others" && i != 1) {
+                geneTables <- getGeneTables(organism, enrichedSig, "leadingEdgeId", interestingGeneMap)
+                geneTables_list[[i]] <- geneTables
                 enrichedSig$link <- mapply(
                     function(link, geneList) linkModification("GSEA", link, geneList, interestingGeneMap, hostName),
                     enrichedSig$link,
                     enrichedSig$leadingEdgeId
                 )
             } else if (organism != "others") {
+                geneTables <- getMetaGeneTables(organism, enrichedSig, "leadingEdgeId", interestingGeneMap)
+                geneTables_list[[i]] <- geneTables
                 for (k in seq_along(enrichedSig$link)) {
                     old_link <- enrichedSig$link[[k]]
                     tryCatch(
                         {
-                            new_link <- metaLinkModification("GSEA", enrichedSig$link[[k]], split(enrichedSig$leadingEdgeId, ";"), interestGeneMaps, hostName, enrichedSig$geneSet[[k]])
-                            if (!is.null(new_link)) {
+                            new_link <- metaLinkModification("GSEA", enrichedSig$link[[k]], strsplit(enrichedSig$leadingEdgeId[[k]], ";"), interestGeneMaps, hostName, enrichedSig$geneSet[[k]])
+                            if (!is.null(new_link) && !is.na(new_link) && new_link != "") {
                                 enrichedSig$link[[k]] <- new_link
                             } else {
                                 enrichedSig$link[[k]] <- old_link

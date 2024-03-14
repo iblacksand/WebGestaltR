@@ -35,6 +35,33 @@ geneM <- function(geneList, mappingTable) {
 }
 
 #' @importFrom dplyr select
+getMetaGeneTables <- function(organism, enrichedSig, geneColumn, interestingGeneMap) {
+    if (organism != "others") {
+        standardId <- interestingGeneMap$standardId
+        mapping <- select(interestingGeneMap$mapped, .data$userId, .data$geneName, .data$gLink, standardId)
+        if ("score" %in% colnames(interestingGeneMap$mapped)) {
+            mapping$score <- interestingGeneMap$mapped$score
+        }
+    }
+    table <- list()
+    for (i in 1:nrow(enrichedSig)) {
+        genes <- enrichedSig[[i, geneColumn]]
+        geneSetId <- enrichedSig[[i, "geneSet"]]
+        if (length(genes) == 1 && is.na(genes)) {
+            table[[geneSetId]] <- list()
+        } else {
+            genes <- unlist(strsplit(genes, ";"))
+            if (organism != "others") {
+                table[[geneSetId]] <- mapping[mapping[[standardId]] %in% genes, ]
+            } else {
+                table[[geneSetId]] <- data.frame("userId" = genes)
+            }
+        }
+    }
+    return(table)
+}
+
+#' @importFrom dplyr select
 getGeneTables <- function(organism, enrichedSig, geneColumn, interestingGeneMap) {
     if (organism != "others") {
         standardId <- interestingGeneMap$standardId

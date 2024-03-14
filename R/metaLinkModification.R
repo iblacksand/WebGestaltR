@@ -4,6 +4,8 @@
 #'
 #' @keywords internal
 metaLinkModification <- function(enrichMethod, enrichPathwayLink, geneList, interestingGeneMap_list, hostName = "https://www.webgestalt.org/", geneSet) {
+    geneList <- unlist(unique(unlist(geneList)))
+    print(geneList)
     list_standard_ids <- sapply(interestingGeneMap_list, function(x) x$standardId)
     sets <- unique(list_standard_ids)
     all_sets <- list()

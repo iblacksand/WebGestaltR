@@ -163,7 +163,7 @@ add_prefix <- function(x, sourceIdType) {
   uppers <- c("LIPIDMAPS", "CAS")
   if (toupper(sourceIdType) %in% uppers) {
     return(unlist(sapply(x, function(y) {
-      if (grepl(":", y, FIXED = TRUE)) {
+      if (grepl(":", y, fixed = TRUE)) {
         return(y)
       }
       return(paste0(toupper(sourceIdType), ":", toupper(y)))

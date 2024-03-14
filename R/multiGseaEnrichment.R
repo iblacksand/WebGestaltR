@@ -10,6 +10,7 @@ multiGseaEnrichment <- function(hostName = NULL, outputDirectory = NULL, project
     if (!dir.exists(old_projectFolder)) {
         dir.create(old_projectFolder)
     }
+    geneSetName_list <- list()
     for (i in seq_along(geneRankList_list)) {
         projectName <- paste0(old_project_name, "_", listNames[i])
         geneRankList <- geneRankList_list[[i]]
@@ -27,7 +28,8 @@ multiGseaEnrichment <- function(hostName = NULL, outputDirectory = NULL, project
         sortedScores <- sort(geneRankList$score, decreasing = TRUE)
         geneSetName <- geneSet %>%
             select(.data$geneSet, link = .data$description) %>%
-            distinct()
+            distinct(.keep_all = TRUE)
+        geneSetName_list[[i]] <- geneSetName
         effectiveGeneSet <- geneSet %>% filter(.data$gene %in% geneRankList$gene)
 
         geneSetNum <- tapply(effectiveGeneSet$gene, effectiveGeneSet$geneSet, length)
@@ -123,6 +125,16 @@ multiGseaEnrichment <- function(hostName = NULL, outputDirectory = NULL, project
             # 	return(leadingEdgeNum)
             # }))
         }
+        if (j != 1) {
+            geneSetName <- geneSetName_list[[j - 1]]
+        } else {
+            all_gene_set_name <- geneSetName_list[[1]]
+            for (i in 2:length(geneSetName_list)) {
+                all_gene_set_name <- rbind(all_gene_set_name, geneSetName_list[[i]])
+            }
+            geneSetName <- all_gene_set_name %>% distinct(.keep_all = TRUE)
+        }
+
         plotSuffix <- ifelse("png" %in% plotFormat, "png", "svg")
         sig <- sig %>%
             left_join(geneSetName, by = "geneSet") %>%

@@ -132,7 +132,6 @@ multiswGsea <- function(input_df_list, thresh_type = "percentile", thresh = 0.9,
                 if (direction == 0) {
                     direction <- 1
                 }
-
                 if (list_p == 0.0) {
                     list_p <- .Machine$double.eps
                 } else if (list_p > biggest_p) {
@@ -145,12 +144,15 @@ multiswGsea <- function(input_df_list, thresh_type = "percentile", thresh = 0.9,
                 } else {
                     flips <- append(flips, -1)
                 }
-                relevant_items <- unlist(gseaRes_list[[j + 1]]$Items_in_Set[[gene_set]])
-                length_of_items <- length_of_items + length(relevant_items)
+                if (gene_set %in% names(gseaRes_list[[j + 1]]$Items_in_Set) == FALSE) {
+                    next
+                }
+                relevant_items_length <- unlist(gseaRes_list[[j + 1]]$Items_in_Set[[gene_set]])
+                length_of_items <- length_of_items + length(relevant_items_length)
                 if (gene_set %in% names(meta_items_in_sets) == FALSE) {
-                    meta_items_in_sets[[gene_set]] <- relevant_items
+                    meta_items_in_sets[[gene_set]] <- gseaRes_list[[j + 1]]$Items_in_Set[[gene_set]]
                 } else {
-                    meta_items_in_sets[[gene_set]] <- unlist(c(meta_items_in_sets[[gene_set]], relevant_items))
+                    meta_items_in_sets[[gene_set]] <- rbind(meta_items_in_sets[[gene_set]], gseaRes_list[[j + 1]]$Items_in_Set[[gene_set]])
                 }
             }
         }
