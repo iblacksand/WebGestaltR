@@ -135,7 +135,7 @@ multiGseaEnrichment <- function(hostName = NULL, outputDirectory = NULL, project
                 geneSet <- sig[[i, "geneSet"]]
                 es <- sig[[i, "enrichmentScore"]]
                 genes <- gseaRes$Items_in_Set[[geneSet]] # row name is gene and one column called rank
-                leadingGeneNum[[i]] <- 0
+                leadingGeneNum[[i]] <- length(genes)
                 leadingGenes[[i]] <- paste(rownames(genes), collapse = ";")
             }
             sig$leadingEdgeNum <- leadingGeneNum
