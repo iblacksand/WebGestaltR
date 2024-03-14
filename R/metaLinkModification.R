@@ -8,10 +8,10 @@ metaLinkModification <- function(enrichMethod, enrichPathwayLink, geneList, inte
     sets <- unique(list_standard_ids)
     all_sets <- list()
     for (i in seq_along(sets)) {
-        all_sets[[i]] <- list()
+        all_sets[[i]] <- c()
         for (j in seq_along(list_standard_ids)) {
             if (sets[[i]] == list_standard_ids[[j]]) {
-                all_sets[[i]] <- c(all_sets[[i]], j)
+                all_sets[[i]] <- unlist(append(all_sets[[i]], j))
             }
         }
     }
@@ -65,7 +65,7 @@ metaLinkModification <- function(enrichMethod, enrichPathwayLink, geneList, inte
                     }
                 }
                 if (grepl("www.kegg.jp", enrichPathwayLink, fixed = TRUE)) {
-                    if (i == 1) {
+                    if (!grepl("&multi_query=", enrichPathwayLink, fixed = TRUE)) {
                         enrichPathwayLink <- paste0(enrichPathwayLink, "&multi_query=")
                     }
                     for (j in seq_along(mapping_table$mapped_genes)) {
@@ -116,7 +116,7 @@ metaLinkModification <- function(enrichMethod, enrichPathwayLink, geneList, inte
                 }
                 if (grepl("www.kegg.jp", enrichPathwayLink, fixed = TRUE)) {
                     if (!is.null(kegg_ontology) && nrow(kegg_ontology) > 0) {
-                        if (i == 1) {
+                        if (!grepl("&multi_query=", enrichPathwayLink, fixed = TRUE)) {
                             enrichPathwayLink <- paste0(enrichPathwayLink, "&multi_query=")
                         }
                         all_displayed_genes <- kegg_ontology$sourceId
