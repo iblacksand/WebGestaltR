@@ -8,10 +8,10 @@ metaLinkModification <- function(enrichMethod, enrichPathwayLink, geneList, inte
     sets <- unique(list_standard_ids)
     all_sets <- list()
     for (i in seq_along(sets)) {
-        all_sets[[i]] <- c()
+        all_sets[[i]] <- list()
         for (j in seq_along(list_standard_ids)) {
             if (sets[[i]] == list_standard_ids[[j]]) {
-                all_sets[[i]] <- unlist(append(all_sets[[i]], j))
+                all_sets[[i]] <- c(all_sets[[i]], j)
             }
         }
     }
