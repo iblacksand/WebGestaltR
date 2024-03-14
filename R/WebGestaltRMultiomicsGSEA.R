@@ -189,7 +189,7 @@ WebGestaltRMultiOmicsGSEA <- function(analyteLists = NULL, analyteListFiles = NU
                         }
                     }
                     idsInSet[[enrichedSig$geneSet[[j]]]] <- unique(unlist(idsInSet[[enrichedSig$geneSet[[j]]]]))
-                    enrichedSig$size[[j]] <- length(idsInSet[[enrichedSig$geneSet[[j]]]])
+                    # enrichedSig$size[[j]] <- length(idsInSet[[enrichedSig$geneSet[[j]]]])
                 }
                 for (k in seq_along(enrichedSig$link)) {
                     old_link <- enrichedSig$link[[k]]
