@@ -173,8 +173,9 @@ WebGestaltRMultiOmicsGSEA <- function(analyteLists = NULL, analyteListFiles = NU
                     enrichedSig$leadingEdgeId
                 )
             } else if (organism != "others") {
-                geneTables <- getMetaGeneTables(organism, enrichedSig, "leadingEdgeId", interestingGeneMap)
+                geneTables <- getGeneTables(organism, enrichedSig, "leadingEdgeId", interestingGeneMap)
                 geneTables_list[[i]] <- geneTables
+                metaGeneTables <- getMetaGSEAGeneTables(organism, enrichedSig, interestGeneMaps, listNames)
                 for (k in seq_along(enrichedSig$link)) {
                     old_link <- enrichedSig$link[[k]]
                     tryCatch(

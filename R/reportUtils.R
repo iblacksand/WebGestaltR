@@ -35,26 +35,43 @@ geneM <- function(geneList, mappingTable) {
 }
 
 #' @importFrom dplyr select
-getMetaGeneTables <- function(organism, enrichedSig, geneColumn, interestingGeneMap) {
-    if (organism != "others") {
-        standardId <- interestingGeneMap$standardId
-        mapping <- select(interestingGeneMap$mapped, .data$userId, .data$geneName, .data$gLink, standardId)
-        if ("score" %in% colnames(interestingGeneMap$mapped)) {
-            mapping$score <- interestingGeneMap$mapped$score
-        }
-    }
+getMetaGSEAGeneTables <- function(organism, enrichedSig, interestingGeneMaps, listNames) {
     table <- list()
     for (i in 1:nrow(enrichedSig)) {
-        genes <- enrichedSig[[i, geneColumn]]
+        genes <- unlist(unique(unlist(strsplit(enrichedSig[[i, "leadingEdgeId"]], ";"))))
         geneSetId <- enrichedSig[[i, "geneSet"]]
         if (length(genes) == 1 && is.na(genes)) {
             table[[geneSetId]] <- list()
         } else {
-            genes <- unlist(strsplit(genes, ";"))
             if (organism != "others") {
-                table[[geneSetId]] <- mapping[mapping[[standardId]] %in% genes, ]
+                row <- data.frame("Analyte" = genes)
+                new_genes <- list()
+                score_lists <- list()
+                for (j in seq_along(genes)) {
+                    gene <- genes[j]
+                    new_label <- ""
+                    for (k in seq_along(interestingGeneMaps)) {
+                        mapping <- select(interestingGeneMaps[[k]]$mapped, .data$geneSymbol, .data$score, interestingGeneMaps[[k]]$standardId)
+
+                        if (gene %in% mapping[[interestingGeneMaps[[k]]$standardId]]) {
+                            score_lists[[k]] <- unlist(mapping[mapping[[interestingGeneMaps[[k]]$standardId]] %in% gene, "score"])
+                            new_label <- unlist(mapping[mapping[[interestingGeneMaps[[k]]$standardId]] %in% gene, "geneSymbol"])[1]
+                        } else {
+                            score_lists[[k]] <- "-"
+                        }
+                    }
+                    if (new_label == "") {
+                        new_label <- gene
+                    }
+                    new_genes[[j]] <- new_label
+                }
+                row <- data.frame("Analyte" = new_genes)
+                for (k in seq_along(interestingGeneMaps)) {
+                    row[[listNames[[k]]]] <- score_lists[[k]]
+                }
+                table[[geneSetId]] <- row
             } else {
-                table[[geneSetId]] <- data.frame("userId" = genes)
+                table[[geneSetId]] <- data.frame("Analyte" = genes)
             }
         }
     }
