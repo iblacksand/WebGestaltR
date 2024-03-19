@@ -68,7 +68,6 @@ multiGseaEnrichment <- function(hostName = NULL, outputDirectory = NULL, project
         # if (saveRawGseaResult) {
         #     saveRDS(gseaRes, file = file.path(outputF, "rawGseaResult.rds"))
         # }
-        print("whoops")
         enrichRes <- gseaRes$Enrichment_Results %>%
             mutate(geneSet = rownames(gseaRes$Enrichment_Results)) %>%
             select(.data$geneSet,
@@ -143,18 +142,16 @@ multiGseaEnrichment <- function(hostName = NULL, outputDirectory = NULL, project
         leadingGeneNum <- vector("integer", numSig)
         leadingGenes <- vector("character", numSig)
         if (j == 1) {
-            print("oops")
             for (i in seq_along(sig$geneSet)) {
                 geneSet <- sig[[i, "geneSet"]]
                 es <- sig[[i, "enrichmentScore"]]
                 genes <- gseaRes$Items_in_Set[[geneSet]] # row name is gene and one column called rank
-                leadingGeneNum[[i]] <- length(genes)
+                leadingGeneNum[[i]] <- nrow(genes)
                 leadingGenes[[i]] <- paste(rownames(genes), collapse = ";")
             }
-            print("here")
             sig$leadingEdgeNum <- leadingGeneNum
             sig$leadingEdgeId <- leadingGenes
-            sig$plotPath <- rep("", numSig)
+            sig$plotPath <- rep("", length(sig$geneSet))
         } else {
             if (is.null(geneSetDes_list) || length(geneSetDes_list) == 0 || length(geneSetDes_list) < i) {
                 geneSetDes <- NULL
