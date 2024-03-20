@@ -1,12 +1,12 @@
 [net]
 git-fetch-with-cli = true
 
-[source."git+https://github.com/bzhanglab/webgestalt_rust.git?branch=random_walk"]
-git = "https://github.com/bzhanglab/webgestalt_rust.git"
-branch = "random_walk"
+[source.crates-io]
 replace-with = "vendored-sources"
 
-[source.crates-io]
+[source."git+https://github.com/bzhanglab/webgestalt_rust.git?branch=master"]
+git = "https://github.com/bzhanglab/webgestalt_rust.git"
+branch = "master"
 replace-with = "vendored-sources"
 
 [source.vendored-sources]

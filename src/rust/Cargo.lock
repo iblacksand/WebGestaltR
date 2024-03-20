@@ -404,6 +404,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "serde_json"
+version = "1.0.114"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c5f09b1bd632ef549eaa9f60a1f8de742bdbc698e6cee2095fc84dde5f549ae0"
+dependencies = [
+ "itoa",
+ "ryu",
+ "serde",
+]
+
+[[package]]
 name = "simba"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -477,8 +488,8 @@ checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
 
 [[package]]
 name = "webgestalt_lib"
-version = "0.2.1"
-source = "git+https://github.com/bzhanglab/webgestalt_rust.git?branch=random_walk#800daa68e757a4c0e3f2095bb070a9c3478fe1ea"
+version = "0.3.0"
+source = "git+https://github.com/bzhanglab/webgestalt_rust.git?branch=master#eee42e4477aaa08af97b41165199b52c13215c55"
 dependencies = [
  "ahash",
  "csv",
@@ -486,6 +497,7 @@ dependencies = [
  "rand",
  "rayon",
  "serde",
+ "serde_json",
  "statrs",
 ]
 

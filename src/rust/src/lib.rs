@@ -89,6 +89,7 @@ pub fn nta_rust(edge_list: Robj, seeds: Robj) -> List {
         seeds,
         reset_probability: 0.5,
         tolerance: 1e-6,
+        ..Default::default()
     };
     let res = nta(config);
     let nodes: Vec<String> = res.iter().map(|(x, _)| x.to_string()).collect();
