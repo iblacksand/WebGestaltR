@@ -86,6 +86,7 @@ WebGestaltRMultiOmicsGSEA <- function(analyteLists = NULL, analyteListFiles = NU
         }
         enrichedSig <- gseaRes$enriched[[i]]
         insig <- gseaRes$background[[i]]
+        print("first")
         if (i == 1) {
             interestingGeneMap <- list(mapped = interestGeneMaps[[1]]$mapped, unmapped = interestGeneMaps[[1]]$unmapped, standardId = interestGeneMaps[[1]]$standardId)
             for (j in seq_along(interestGeneMaps)) {
@@ -148,6 +149,7 @@ WebGestaltRMultiOmicsGSEA <- function(analyteLists = NULL, analyteListFiles = NU
         geneTables <- list()
         if (!is.null(enrichedSig)) {
             if (!is.null(geneSetDes)) { ####### Add extra description information ###########
+                print("here")
                 enrichedSig <- enrichedSig %>%
                     left_join(geneSetDes, by = "geneSet") %>%
                     select(.data$geneSet, .data$description, .data$link, .data$enrichmentScore, .data$normalizedEnrichmentScore, .data$pValue, .data$FDR, .data$size, .data$plotPath, .data$leadingEdgeNum, .data$leadingEdgeId) %>%
@@ -163,6 +165,7 @@ WebGestaltRMultiOmicsGSEA <- function(analyteLists = NULL, analyteListFiles = NU
             if (i != 1) {
                 enrichedSig_list[[i - 1]] <- enrichedSig
             }
+            print("next")
 
             if (organism != "others" && i != 1) {
                 geneTables <- getGeneTables(organism, enrichedSig, "leadingEdgeId", interestingGeneMap)

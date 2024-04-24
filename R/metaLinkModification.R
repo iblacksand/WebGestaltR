@@ -201,11 +201,12 @@ meta_keggMetaboliteLinkModification <- function(enrichMethod, kegg_geneList, ram
                 color_db$analyte[[i]] <- found[[i]]
                 color_db$color[[i]] <- color
             }
-        }
-        ora_white <- get_white(color_index)
-        for (i in seq_along(not_found)) {
-            color_db$analyte[[i + length(color_db$analyte)]] <- not_found[[i]]
-            color_db$color[[i + length(color_db$color)]] <- ora_white
+
+            ora_white <- get_white(color_index)
+            for (i in seq_along(not_found)) {
+                color_db$analyte[[i + length(color_db$analyte)]] <- not_found[[i]]
+                color_db$color[[i + length(color_db$color)]] <- ora_white
+            }
         }
         color_db$analyte <- unlist(color_db$analyte)
         color_db$color <- unlist(color_db$color)
@@ -252,14 +253,15 @@ meta_keggLinkModification <- function(enrichMethod, geneList, all_genes, interes
                 color_db$analyte[[i]] <- found[[i]]
                 color_db$color[[i]] <- color
             }
+
+            ora_white <- get_white(color_index)
+            for (i in seq_along(not_found)) {
+                color_db$analyte[[i + length(found)]] <- not_found[[i]]
+                color_db$color[[i + length(found)]] <- ora_white
+            }
+            color_db$analyte <- unlist(color_db$analyte)
+            color_db$color <- unlist(color_db$color)
         }
-        ora_white <- get_white(color_index)
-        for (i in seq_along(not_found)) {
-            color_db$analyte[[i + length(found)]] <- not_found[[i]]
-            color_db$color[[i + length(found)]] <- ora_white
-        }
-        color_db$analyte <- unlist(color_db$analyte)
-        color_db$color <- unlist(color_db$color)
     }
     return(color_db)
 }
